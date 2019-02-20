@@ -66,7 +66,7 @@ module ActiveRecord
         end
 
 
-        def quote(value_)
+        def quote(value_, column_ = nil)
           if ::RGeo::Feature::Geometry.check_type(value_)
             "GeomFromWKB(0x#{::RGeo::WKRep::WKBGenerator.new(hex_format: true).generate(value_)},#{value_.srid})"
           else
