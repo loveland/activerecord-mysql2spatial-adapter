@@ -3,7 +3,7 @@
 The MySQL2 Spatial ActiveRecord Adapter is an ActiveRecord connection
 adapter based on the standard mysql2 adapter. It extends the standard
 adapter to provide support for spatial columns and indexes in MySQL,
-using the {RGeo}[http://github.com/dazuma/rgeo] library to represent
+using the {RGeo}[https://github.com/rgeo/rgeo] library to represent
 spatial data in Ruby. Like the standard mysql2 adapter, this adapter
 requires the mysql2 gem.
 
@@ -11,7 +11,7 @@ requires the mysql2 gem.
 
 === Spatial Migrations
 
-First, this adapter extends the migration syntax to support creating 
+First, this adapter extends the migration syntax to support creating
 spatial columns and indexes. To create a spatial column, use the
 <tt>:geometry</tt> type, or any of the OGC spatial types such as
 <tt>:point</tt> or <tt>:line_string</tt>. To create a spatial index, set
@@ -55,13 +55,13 @@ the "rgeo-activerecord" gem.
 Examples, given the spatial table defined above:
 
   class MySpatialTable < ActiveRecord::Base
-    
+
     # By default, use the GEOS implementation for spatial columns.
     self.rgeo_factory_generator = RGeo::Geos.method(:factory)
-    
+
     # But use a geographic implementation for the :latlon column.
     set_rgeo_factory_for_column(:latlon, RGeo::Geographic.spherical_factory)
-    
+
   end
 
 Now you can interact with the data using the RGeo types:
@@ -100,12 +100,13 @@ This adapter has the following requirements:
 
 * Ruby 1.9.3 or later.
 * MySQL server 5.5 or later, or equivalent MariaDB, required for spatial extensions.
-* ActiveRecord 5.0.x.
+* ActiveRecord 5.x.
 * mysql2 gem 0.4 or later.
 * rgeo 0.3.20 or later.
 * rgeo-activerecord 5.0 or later.
 
 Use the branch 'activerecord-4.2' for AR4.2 and mysql2 0.3.x
+Use the branch 'activerecord-5.0' for AR5.0, AR5.1 and mysql2 0.3.x
 
 Install this adapter as a gem:
 
@@ -114,6 +115,10 @@ Install this adapter as a gem:
 Install with bundler:
 
   gem 'activerecord-mysql2spatial-adapter', github: 'fjl82/activerecord-mysql2spatial-adapter'
+
+Older versions can be used like this:
+
+  gem 'activerecord-mysql2spatial-adapter', github: 'fjl82/activerecord-mysql2spatial-adapter', branch: 'activerecord-4.2'
 
 See the README for the "rgeo" gem, a required dependency, for further
 installation information. The rgeo gem has some binary dependencies that
@@ -157,7 +162,7 @@ Rails as of Rails 3.0.3, so we hope it will get rectified at some point.
 
 The Mysql2Spatial Adapter and its supporting libraries (including RGeo)
 are written by Daniel Azuma (http://www.daniel-azuma.com).
-ActiveRecord 4.2 and 5.0 compatibility by fjl82.
+ActiveRecord 4.2 and 5.x compatibility by fjl82.
 
 This adapter implementation owes some debt to the spatial_adapter plugin
 (http://github.com/fragility/spatial_adapter). Although we made a few
@@ -167,7 +172,7 @@ source gave us a head start on the implementation.
 === License
 
 Copyright 2010-2012 Daniel Azuma
-Copyright 2015-2017 fjl82
+Copyright 2015-2018 fjl82
 
 All rights reserved.
 

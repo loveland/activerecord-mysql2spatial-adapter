@@ -31,7 +31,7 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 # -----------------------------------------------------------------------------
-;
+
 
 ::Gem::Specification.new do |spec|
   spec.name = 'activerecord-mysql2spatial-adapter'
@@ -49,6 +49,6 @@
   spec.extra_rdoc_files = ::Dir.glob('*.rdoc')
   spec.test_files = ::Dir.glob('test/**/tc_*.rb')
   spec.platform = ::Gem::Platform::RUBY
-  spec.add_dependency('rgeo-activerecord', '~> 5.0')
-  spec.add_dependency('mysql2', '~> 0.4.0')
+  spec.add_dependency('rgeo-activerecord', '> 5.0', '< 7.0')
+  spec.add_dependency('mysql2', '> 0.4.0', '< 0.6')
 end
