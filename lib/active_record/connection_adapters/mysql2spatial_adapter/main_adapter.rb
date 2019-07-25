@@ -66,7 +66,7 @@ module ActiveRecord
         end
 
 
-        def quote(value_, column_ = nil)
+        def quote(value_)
           if ::RGeo::Feature::Geometry.check_type(value_)
             "GeomFromWKB(0x#{::RGeo::WKRep::WKBGenerator.new(:hex_format => true, :little_endian => true).generate(value_)},#{value_.srid})"
           else
@@ -75,13 +75,13 @@ module ActiveRecord
         end
 
 
-        def type_to_sql(type_, limit_ = nil, precision_ = nil, scale_ = nil, unsigned_ = nil)
+        def type_to_sql(type_, limit_ = nil, precision_ = nil, scale_ = nil)
           if (info_ = spatial_column_constructor(type_.to_sym))
             type_ = limit_[:type] || type_ if limit_.is_a?(::Hash)
             type_ = 'geometry' if type_.to_s == 'spatial'
             type_ = type_.to_s.gsub('_', '').upcase
           end
-          super(type_, limit_, precision_, scale_, unsigned_)
+          super(type_, limit_, precision_, scale_)
         end
 
 
