@@ -76,16 +76,6 @@ module ActiveRecord
         end
 
 
-        def type_to_sql(type_, limit_ = nil, precision_ = nil, scale_ = nil)
-          if (info_ = spatial_column_constructor(type_.to_sym))
-            type_ = limit_[:type] || type_ if limit_.is_a?(::Hash)
-            type_ = 'geometry' if type_.to_s == 'spatial'
-            type_ = type_.to_s.gsub('_', '').upcase
-          end
-          super(type_, limit_, precision_, scale_)
-        end
-
-
         def add_index(table_name_, column_name_, options_ = {})
           if options_[:spatial]
             index_name_ = index_name(table_name_, column: Array(column_name_))
