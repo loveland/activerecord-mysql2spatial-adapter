@@ -100,24 +100,6 @@ module ActiveRecord
         end
 
 
-        def indexes(table_name_, name_ = nil)
-          indexes_ = []
-          current_index_ = nil
-          result_ = execute("SHOW KEYS FROM #{quote_table_name(table_name_)}", name_)
-          result_.each(symbolize_keys: true, as: :hash) do |row_|
-            if current_index_ != row_[:Key_name]
-              next if row_[:Key_name] == 'PRIMARY' # skip the primary key
-              current_index_ = row_[:Key_name]
-              indexes_ << ::RGeo::ActiveRecord::SpatialIndexDefinition.new(row_[:Table], row_[:Key_name], row_[:Non_unique] == 0, [], [], [], nil, row_[:Index_type] == 'SPATIAL')
-            end
-            last_index_ = indexes_.last
-            last_index_.columns << row_[:Column_name]
-            last_index_.lengths << row_[:Sub_part] unless last_index_.spatial
-          end
-          indexes_
-        end
-
-
         protected
 
         def initialize_type_map(m = type_map)
