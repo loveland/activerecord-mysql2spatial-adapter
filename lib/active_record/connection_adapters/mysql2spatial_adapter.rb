@@ -44,7 +44,8 @@ module ActiveRecord
   class Base
 
     # Create a mysql2spatial connection adapter.
-    def self.mysql2spatial_connection(config_)
+    def self.mysql2spatial_connection(config)
+      config_ = config.dup
       config_[:username] = 'root' if config_[:username].nil?
       if ::Mysql2::Client.const_defined?(:FOUND_ROWS)
         config_[:flags] = ::Mysql2::Client::FOUND_ROWS
