@@ -69,7 +69,7 @@ module ActiveRecord
         def quote(value_)
           actual = defined?(value_.value_before_type_cast) ? value_.value_before_type_cast : value_
           if ::RGeo::Feature::Geometry.check_type(actual)
-            "GeomFromWKB(0x#{::RGeo::WKRep::WKBGenerator.new(:hex_format => true, :little_endian => true).generate(actual)},#{actual.srid})"
+            "ST_GeomFromWKB(0x#{::RGeo::WKRep::WKBGenerator.new(:hex_format => true, :little_endian => true).generate(actual)},#{actual.srid})"
           else
             super
           end
